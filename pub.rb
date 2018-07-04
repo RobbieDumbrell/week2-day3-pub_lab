@@ -43,4 +43,9 @@ class Pub
     end
   end
 
+  def check_stock_value
+    # to be done
+
+  end
+
 end

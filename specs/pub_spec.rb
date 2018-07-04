@@ -85,5 +85,10 @@ class TestPub < MiniTest::Test
     assert_equal(false, in_stock)
   end
 
+# to be done
+  def test_check_stock_value_method
+    assert_equal(406, @nags_head.check_stock_value)
+  end
+
 
 end
