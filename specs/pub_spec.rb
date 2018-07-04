@@ -5,16 +5,16 @@ require_relative('../pub.rb')
 class TestPub < MiniTest::Test
 
   def setup
-    @guinness = Drink.new("Guinness", 3)
-    @carlsberg = Drink.new("Carlsberg", 2)
-    @babycham = Drink.new("Babycham", 4)
+    @guinness = Drink.new("Guinness", 3, 5)
+    @carlsberg = Drink.new("Carlsberg", 2, 3)
+    @babycham = Drink.new("Babycham", 4, 9)
 
     @drinks = [@guinness, @carlsberg, @babycham]
 
     @nags_head = Pub.new("Nag's Head", 50, @drinks)
 
-    @mark = Customer.new("Mark", 10, 17)
-    @robbie = Customer.new("Robbie", 1000, 25)
+    @mark = Customer.new("Mark", 10, 17, 50)
+    @robbie = Customer.new("Robbie", 1000, 25, 0)
   end
 
   def test_check_pub_name
@@ -47,4 +47,9 @@ class TestPub < MiniTest::Test
     assert_equal(true, is_legal)
   end
 
+  def test_pub_can_check_if__drunk
+    @nags_head.check_if_drunk(@mark)
+    is_drunk = @mark.drunkeness >=50
+    assert_equal(true, is_drunk)
+  end
 end

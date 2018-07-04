@@ -21,4 +21,9 @@ class Pub
     return false if customer.age < 18
   end
 
+  def check_if_drunk(customer)
+    return true if customer.drunkeness >=50
+    return false if customer.drunkeness <50
+  end
+  
 end
