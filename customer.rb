@@ -1,9 +1,10 @@
-require_relative('drink.rb')
+# require_relative('drink.rb')
 require_relative('pub.rb')
+# require_relative('food.rb')
 
 class Customer
 
-  attr_reader :name, :wallet, :drinks_in_stomach, :age, :drunkeness
+  attr_reader :name, :wallet, :drinks_in_stomach, :age, :drunkeness, :food_in_stomach
 
   def initialize(name, wallet, age, drunkeness)
     @name = name
@@ -11,6 +12,7 @@ class Customer
     @age = age
     @drunkeness = drunkeness
     @drinks_in_stomach = []
+    @food_in_stomach = []
   end
 
   def buy_drink(drink, pub) # buys certain drink from a certain pub.
@@ -21,6 +23,13 @@ class Customer
       @drunkeness += drink.alcohol_level # customer's drunkneness level increases by the alcohol level of the specified drink.
     else return
     end
+  end
+
+  def buy_food(food, pub)
+    @food_in_stomach << food
+    @wallet -= food.price
+    pub.sell_food(food)
+    @drunkeness -= food.rejuvination_level
   end
 
 end

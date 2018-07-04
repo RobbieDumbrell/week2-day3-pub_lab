@@ -17,7 +17,13 @@ class TestCusomter < MiniTest::Test
 
     @drinks = [@guinness, @carlsberg, @babycham]
 
-    @nags_head = Pub.new("Nag's Head", 50, @drinks)
+    @pizza = Food.new("Pizza", 5, 5)
+    @burger = Food.new("Burger", 4, 7)
+    @lobster = Food.new("Lobster", 10, 4)
+
+    @food = [@pizza, @burger, @lobster]
+
+    @nags_head = Pub.new("Nag's Head", 50, @drinks, @food)
   end
 
   def test_check_customer_name
@@ -100,6 +106,14 @@ class TestCusomter < MiniTest::Test
     assert_equal(40, @medium_jonny.wallet)
     assert_equal(50, @nags_head.till)
     assert_equal(70, @medium_jonny.drunkeness)
+  end
+
+  def test_customer_can_buy_food
+    @mark.buy_food(@pizza, @nags_head)
+    assert_equal([@pizza], @mark.food_in_stomach)
+    assert_equal(5, @mark.wallet)
+    assert_equal(55, @nags_head.till)
+    assert_equal(45, @mark.drunkeness)
   end
 
 end

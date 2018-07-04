@@ -11,7 +11,13 @@ class TestPub < MiniTest::Test
 
     @drinks = [@guinness, @carlsberg, @babycham]
 
-    @nags_head = Pub.new("Nag's Head", 50, @drinks)
+    @pizza = Food.new("Pizza", 5, 5)
+    @burger = Food.new("Burger", 4, 7)
+    @lobster = Food.new("Lobster", 10, 4)
+
+    @food = [@pizza, @burger, @lobster]
+
+    @nags_head = Pub.new("Nag's Head", 50, @drinks, @food)
 
     @mark = Customer.new("Mark", 10, 17, 50)
     @robbie = Customer.new("Robbie", 1000, 25, 0)
@@ -52,4 +58,11 @@ class TestPub < MiniTest::Test
     is_drunk = @mark.drunkeness >=50
     assert_equal(true, is_drunk)
   end
+
+  def test_sell_food_increases_till
+    @nags_head.sell_food(@pizza)
+    assert_equal(55, @nags_head.till)
+  end
+
+
 end
