@@ -17,7 +17,14 @@ class TestPub < MiniTest::Test
 
     @food = [@pizza, @burger, @lobster]
 
-    @nags_head = Pub.new("Nag's Head", 50, @drinks, @food)
+    @stock = {
+      @guinness => 2,
+      @babycham => 100
+      # @carlsberg => 0
+    }
+
+    @nags_head = Pub.new("Nag's Head", 50, @drinks, @food, @stock)
+
 
     @mark = Customer.new("Mark", 10, 17, 50)
     @robbie = Customer.new("Robbie", 1000, 25, 0)
@@ -62,6 +69,20 @@ class TestPub < MiniTest::Test
   def test_sell_food_increases_till
     @nags_head.sell_food(@pizza)
     assert_equal(55, @nags_head.till)
+  end
+
+  def test_check_pub_has_stock
+    assert_equal(@stock, @nags_head.stock)
+  end
+
+  def test_check_if_in_stock__true
+    in_stock = @nags_head.check_if_in_stock(@guinness)
+    assert_equal(true, in_stock)
+  end
+
+  def test_check_if_in_stock__false
+    in_stock = @nags_head.check_if_in_stock(@carlsberg)
+    assert_equal(false, in_stock)
   end
 
 

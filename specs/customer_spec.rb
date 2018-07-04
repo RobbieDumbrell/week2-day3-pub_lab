@@ -23,7 +23,12 @@ class TestCusomter < MiniTest::Test
 
     @food = [@pizza, @burger, @lobster]
 
-    @nags_head = Pub.new("Nag's Head", 50, @drinks, @food)
+    @stock = {
+      @guinness => 2,
+      @babycham => 100
+    }
+
+    @nags_head = Pub.new("Nag's Head", 50, @drinks, @food, @stock)
   end
 
   def test_check_customer_name
@@ -115,5 +120,20 @@ class TestCusomter < MiniTest::Test
     assert_equal(55, @nags_head.till)
     assert_equal(45, @mark.drunkeness)
   end
+
+  def test_check_if_stock_changes_when_customer_buys_drink
+    @robbie.buy_drink(@guinness, @nags_head)
+    assert_equal(1, @nags_head.stock[@guinness])
+  end
+
+  def test_check_customer_can_not_buy_drink_not_in_stock
+    @robbie.buy_drink(@wkd, @nags_head)
+    assert_equal([], @robbie.drinks_in_stomach)
+    assert_equal(1000, @robbie.wallet)
+    assert_equal(50, @nags_head.till)
+    assert_equal(0, @robbie.drunkeness)
+    assert_equal(@stock, @nags_head.stock)
+  end
+
 
 end

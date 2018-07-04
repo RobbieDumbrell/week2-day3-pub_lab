@@ -16,11 +16,12 @@ class Customer
   end
 
   def buy_drink(drink, pub) # buys certain drink from a certain pub.
-    if pub.check_if_legal(self) == true && pub.check_if_drunk(self) == false
+    if pub.check_if_legal(self) == true && pub.check_if_drunk(self) == false && pub.check_if_in_stock(drink) == true
       @drinks_in_stomach << drink # puts a drink in customer's hand (array).
       @wallet -= drink.price # customers wallet decreases by price of the drink.
       pub.sell_drink(drink) # calls method from Pub class that increases the till.
       @drunkeness += drink.alcohol_level # customer's drunkneness level increases by the alcohol level of the specified drink.
+      pub.stock[drink] -= 1
     else return
     end
   end
