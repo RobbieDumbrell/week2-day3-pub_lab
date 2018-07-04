@@ -1,4 +1,5 @@
 require_relative('drink.rb')
+require_relative('customer.rb')
 
 
 class Pub
@@ -13,6 +14,11 @@ class Pub
 
   def sell_drink(drink)
     @till += drink.price # pub increaes its own till when it sells a drink. (customer will request this to happen).
+  end
+
+  def check_if_legal(customer)
+    return true if customer.age >= 18
+    return false if customer.age < 18
   end
 
 end

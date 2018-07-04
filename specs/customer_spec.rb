@@ -5,7 +5,8 @@ require_relative('../customer.rb')
 class TestCusomter < MiniTest::Test
 
   def setup
-    @mark = Customer.new("Mark",10)
+    @mark = Customer.new("Mark", 10, 17)
+    @robbie= Customer.new("Robbie", 1000, 25)
 
     @guinness = Drink.new("Guinness", 3)
     @carlsberg = Drink.new("Carlsberg", 2)
@@ -25,17 +26,35 @@ class TestCusomter < MiniTest::Test
   end
 
   def test_customer_can_buy_drink
-    @mark.buy_drink(@babycham, @nags_head)
-    assert_equal([@babycham], @mark.drinks_in_hand)
+    @robbie.buy_drink(@babycham, @nags_head)
+    assert_equal([@babycham], @robbie.drinks_in_hand)
   end
 
   def test_wallet_decreases_when_customer_buys_drink
-    @mark.buy_drink(@guinness, @nags_head)
-    assert_equal(7, @mark.wallet)
+    @robbie.buy_drink(@guinness, @nags_head)
+    assert_equal(997, @robbie.wallet)
   end
 
   def test_till_increases_when_customer_buys_drink
+    @robbie.buy_drink(@guinness, @nags_head)
+    assert_equal(53, @nags_head.till)
+  end
+
+  def test_check_customer_age
+    assert_equal(17, @mark.age)
+  end
+
+  def test_pub_checks_age_before_selling__not_allowed
     @mark.buy_drink(@guinness, @nags_head)
+    assert_equal([], @mark.drinks_in_hand)
+    assert_equal(10, @mark.wallet)
+    assert_equal(50, @nags_head.till)
+  end
+
+  def test_pub_checks_age_before_selling__allowed
+    @robbie.buy_drink(@guinness, @nags_head)
+    assert_equal([@guinness], @robbie.drinks_in_hand)
+    assert_equal(997, @robbie.wallet)
     assert_equal(53, @nags_head.till)
   end
 

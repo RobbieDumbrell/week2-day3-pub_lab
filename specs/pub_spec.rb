@@ -12,6 +12,9 @@ class TestPub < MiniTest::Test
     @drinks = [@guinness, @carlsberg, @babycham]
 
     @nags_head = Pub.new("Nag's Head", 50, @drinks)
+
+    @mark = Customer.new("Mark", 10, 17)
+    @robbie = Customer.new("Robbie", 1000, 25)
   end
 
   def test_check_pub_name
@@ -30,6 +33,18 @@ class TestPub < MiniTest::Test
   def test_sell_drink_increases_till
     @nags_head.sell_drink(@guinness)
     assert_equal(53, @nags_head.till)
+  end
+
+  def test_pub_can_check_if_legal__false
+    @nags_head.check_if_legal(@mark)
+    is_legal = @mark.age >= 18
+    assert_equal(false, is_legal)
+  end
+
+  def test_pub_can_check_if_legal__true
+    @nags_head.check_if_legal(@robbie)
+    is_legal = @robbie.age >= 18
+    assert_equal(true, is_legal)
   end
 
 end
