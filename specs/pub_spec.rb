@@ -27,4 +27,9 @@ class TestPub < MiniTest::Test
     assert_equal(expected_drinks, @nags_head.drinks)
   end
 
+  def test_sell_drink_increases_till
+    @nags_head.sell_drink(@guinness)
+    assert_equal(53, @nags_head.till)
+  end
+
 end
